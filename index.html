@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>新美业门店增长力测试 | 像问卷星一样精准诊断</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: #f5f9ff;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, 'Noto Sans', sans-serif;
+            padding: 20px 16px 60px;
+            color: #1e2a3e;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* 头部 */
+        .hero {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .hero h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #c44569, #6c5ce7);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+
+        .hero p {
+            color: #5b6e8c;
+            margin-top: 8px;
+            font-size: 0.9rem;
+        }
+
+        /* 卡片 */
+        .card {
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02), 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            overflow: hidden;
+            border: 1px solid #eef2f8;
+        }
+
+        .card-header {
+            padding: 18px 20px 8px 20px;
+            border-bottom: 1px solid #edf2f7;
+            background: #ffffff;
+        }
+
+        .card-header h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #0f172a;
+        }
+
+        .card-body {
+            padding: 16px 20px 24px;
+        }
+
+        /* 表单 */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .field label {
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: #334155;
+        }
+
+        .field input, .field select {
+            padding: 12px 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 24px;
+            font-size: 0.9rem;
+            background: #fff;
+            transition: 0.2s;
+        }
+
+        .field input:focus, .field select:focus {
+            outline: none;
+            border-color: #c44569;
+            box-shadow: 0 0 0 3px rgba(196,69,105,0.1);
+        }
+
+        /* 题目区域 */
+        .question-item {
+            margin-bottom: 28px;
+            border-bottom: 1px solid #f0f2f5;
+            padding-bottom: 22px;
+        }
+
+        .question-text {
+            font-weight: 700;
+            margin-bottom: 14px;
+            font-size: 1rem;
+            line-height: 1.4;
+            color: #0f2b3d;
+        }
+
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .option-radio {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #f8fafc;
+            padding: 8px 18px;
+            border-radius: 50px;
+            border: 1px solid #e2edf2;
+            transition: all 0.15s;
+            cursor: pointer;
+            flex: 0 0 auto;
+        }
+
+        .option-radio.selected {
+            background: #ffe9ef;
+            border-color: #c44569;
+            box-shadow: 0 2px 6px rgba(196,69,105,0.15);
+        }
+
+        .option-radio input {
+            margin: 0;
+            accent-color: #c44569;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .option-radio label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #1f2a44;
+            cursor: pointer;
+            line-height: 1.2;
+        }
+
+        /* 按钮 */
+        .btn-submit {
+            background: linear-gradient(95deg, #c44569, #e06b7e);
+            border: none;
+            width: 100%;
+            padding: 16px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: white;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 16px;
+            box-shadow: 0 6px 14px rgba(196,69,105,0.25);
+        }
+
+        .btn-submit:active {
+            transform: scale(0.97);
+        }
+
+        /* 结果卡片 */
+        .result-card {
+            background: white;
+            border-radius: 32px;
+            padding: 24px;
+            margin-top: 30px;
+            border-left: 6px solid #c44569;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+        }
+
+        .result-badge {
+            display: inline-block;
+            background: #f1f5f9;
+            border-radius: 60px;
+            padding: 6px 16px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+
+        .result-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .result-score {
+            font-size: 0.9rem;
+            color: #475569;
+            margin-bottom: 18px;
+            background: #f8fafc;
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 40px;
+        }
+
+        .pain-point, .deep-reason, .warning, .next-guide {
+            margin: 18px 0;
+            padding: 14px;
+            border-radius: 24px;
+            background: #fef9f5;
+        }
+
+        .next-guide {
+            background: #eef2ff;
+            border-left: 4px solid #c44569;
+        }
+
+        .consult-btn, .share-btn {
+            display: inline-block;
+            background: #1e293b;
+            color: white;
+            padding: 10px 22px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 12px;
+            margin-right: 12px;
+            transition: 0.2s;
+            border: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .share-btn {
+            background: #4b5563;
+        }
+
+        .consult-btn:active, .share-btn:active {
+            transform: scale(0.96);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #8ba0bc;
+            font-size: 0.7rem;
+        }
+
+        /* 模态弹窗 (微信内友好) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(3px);
+        }
+        .modal-content {
+            background: white;
+            border-radius: 48px;
+            max-width: 320px;
+            width: 85%;
+            text-align: center;
+            padding: 28px 20px 32px;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.2);
+            animation: fadeInUp 0.2s ease;
+        }
+        .modal-content img {
+            width: 160px;
+            height: 160px;
+            margin: 12px auto;
+            background: #f5f5f5;
+            border-radius: 24px;
+            object-fit: contain;
+            display: block;
+        }
+        .qr-placeholder {
+            background: #f0f0f0;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #9ca3af;
+            flex-direction: column;
+        }
+        .close-modal {
+            background: #c44569;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 60px;
+            font-weight: 600;
+            margin-top: 20px;
+            cursor: pointer;
+            width: 80%;
+            font-size: 1rem;
+        }
+        .modal-title {
+            font-weight: 800;
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+        .modal-sub {
+            color: #6c757d;
+            font-size: 0.75rem;
+            margin-bottom: 6px;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 移动端优化 */
+        @media (max-width: 600px) {
+            body {
+                padding: 16px 12px 40px;
+            }
+            .option-radio {
+                padding: 6px 14px;
+                flex: 1 0 auto;
+            }
+            .options {
+                gap: 8px;
+            }
+            .result-title {
+                font-size: 1.4rem;
+            }
+        }
+        .toast-msg {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293bc9;
+            backdrop-filter: blur(8px);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            z-index: 3000;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>🧪 新美业增长力测试</h1>
+        <p>3分钟精准诊断 · 找出经营卡点 · 像问卷星一样顺手</p>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h2>📋 门店基础档案</h2>
+        </div>
+        <div class="card-body">
+            <div class="form-grid">
+                <div class="field"><label>您的称呼 *</label><input type="text" id="name" placeholder="例：张总 / 李院长" required></div>
+                <div class="field"><label>手机号 *</label><input type="tel" id="phone" placeholder="接收专属诊断" required></div>
+                <div class="field"><label>微信号 *</label><input type="text" id="wechat" placeholder="顾问添加微信发报告" required></div>
+                <div class="field"><label>所在城市</label><input type="text" id="city" placeholder="例：杭州市"></div>
+                <div class="field"><label>门店名称</label><input type="text" id="shopName" placeholder="门店全称"></div>
+                <div class="field"><label>门店类型</label><select id="shopType"><option>传统美容院</option><option>新美业皮肤管理店</option><option>科技美肤店</option><option>养生美容综合店</option><option>双美中心</option><option>其他</option></select></div>
+                <div class="field"><label>日均到店人数</label><select id="dailyTraffic"><option>5人以下</option><option>5-10人</option><option>10-30人</option><option>30-50人</option><option>50人以上</option></select></div>
+                <div class="field"><label>是否有抗衰项目</label><select id="antiaging"><option>有，经营状态尚可</option><option>有，经营状态一般</option><option>有，顾客认可度低</option><option>没有，正在考虑引进</option><option>暂时不考虑</option></select></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h2>📊 核心经营诊断 (18题)</h2>
+        </div>
+        <div class="card-body" id="questionsContainer"></div>
+    </div>
+
+    <button type="button" class="btn-submit" id="submitBtn">🚀 立即生成专属诊断报告</button>
+    <div id="resultArea"></div>
+    <footer>© 新美业增长实验室 · 基于真实体感 精准卡点定位</footer>
+</div>
+
+<!-- 群聊二维码弹窗 -->
+<div id="qrModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-title">👥 美业增长交流群</div>
+        <div class="modal-sub">扫码加入，获取活动模板 / 诊断答疑</div>
+        <!-- 👇 此处替换为您的真实微信群二维码图片地址，目前为示意svg -->
+        <img id="groupQrImage" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='14' fill='%236b7280'%3E群聊二维码%3C/text%3E%3C/svg%3E" alt="群二维码">
+        <div style="font-size: 12px; color:#9ca3af; margin-top: 6px;">微信长按识别 加入行业交流</div>
+        <button class="close-modal" id="closeModalBtn">关闭</button>
+    </div>
+</div>
+
+<script>
+    // ---------- 分值映射（完全依照附件）----------
+    const scoreMap = {
+        1: { "A":4, "B":3, "C":2, "D":1, "E":0 },
+        2: { "A":0, "B":1, "C":2, "D":2, "E":3 },
+        3: { "A":4, "B":3, "C":2, "D":0, "E":3 },
+        4: { "A":3, "B":6, "C":9, "D":11 },
+        5: { "A":13, "B":9, "C":6, "D":0 },
+        6: { "A":8, "B":3, "C":6, "D":0 },
+        7: { "A":8, "B":3, "C":6, "D":0 },
+        8: { "A":8, "B":3, "C":6, "D":0 },
+        9: { "A":11, "B":6, "C":9, "D":0 },
+        10: { "A":13, "B":9, "C":6, "D":0 },
+        11: { "A":11, "B":8, "C":5, "D":0 },
+        12: { "A":5, "B":8, "C":11, "D":8, "E":13 },
+        13: { "A":11, "B":8, "C":5, "D":0 },
+        14: { "A":13, "B":9, "C":6, "D":0 },
+        15: { "A":11, "B":8, "C":5, "D":0 },
+        16: { "A":13, "B":9, "C":6, "D":0 },
+        17: { "A":24, "B":18, "C":12, "D":21, "E":9 }
+    };
+
+    // 题目及选项 (Q18 意向选题)
+    const questionsData = {
+        1: { text: "Q1. 您门店日常到店客流的整体体感是？", options: ["A. 客流极少，门店偏冷清", "B. 客流偏少，日常没什么人气", "C. 客流中等，平平无奇无增量", "D. 客流偏多，基础人气充足", "E. 客流充足，门店日常热闹"] },
+        2: { text: "Q2. 您门店目前最稳定的客户来源是？", options: ["A. 老客转介绍为主", "B. 朋友圈 / 微信私域老客为主", "C. 抖音 / 小红书 / 视频号线上引流", "D. 美团 / 大众点评等本地生活平台", "E. 无任何稳定获客渠道，客源全靠随缘"] },
+        3: { text: "Q3. 门店每月新增新客的整体体感是？", options: ["A. 新客极少，几乎没有新增", "B. 新客偏少，增量特别有限", "C. 新客数量中等，很难突破上限", "D. 新客较多，增量状态不错", "E. 从未关注统计，完全不清楚新客情况"] },
+        4: { text: "Q4. 门店的低门槛体验引流项目，经营体感如何？", options: ["A. 有体验项目，但顾客参与意愿低", "B. 有体验项目，引流效果平平", "C. 有体验项目，很难沉淀有效客户", "D. 没有适配门店的低门槛体验引流项目"] },
+        5: { text: "Q5. 新客首次到店体验后，留存转化的整体状态是？", options: ["A. 很难主动留存，体验完基本就流失", "B. 转化一般，必须员工强力推销才有可能成交", "C. 转化不稳定，全凭顾客心情", "D. 转化顺畅，新客留存意愿高"] },
+        6: { text: "Q6. 近3个月门店老客回店消费的整体状态是？", options: ["A. 回店很不稳定，明显下滑", "B. 回店状态一般，活跃度大不如前", "C. 大量老客沉睡，极少主动回店", "D. 老客回店稳定，状态良好"] },
+        7: { text: "Q7. 门店针对沉睡老客，是否有专属激活方式、效果如何？", options: ["A. 没有任何老客激活方法，放任流失", "B. 偶尔做激活动作，完全没有固定体系", "C. 有激活动作，但效果很不理想", "D. 有成熟激活方式，老客回流状态不错"] },
+        8: { text: "Q8. 门店月卡、季卡、年卡等复购体系的经营状态是？", options: ["A. 无系统化复购卡项体系", "B. 有卡项，但员工不会主动推广", "C. 有卡项，但顾客续费意愿低迷", "D. 卡项体系成熟，复购续费稳定"] },
+        9: { text: "Q9. 门店现有项目的新鲜感、竞争力体感是？", options: ["A. 项目明显老化，老客兴趣大幅降低", "B. 项目新鲜感不足，顾客体验感平平", "C. 项目杂乱繁多，没有清晰主推方向", "D. 项目新颖有竞争力，顾客认可度高"] },
+        10: { text: "Q10. 顾客对门店现有项目的价值感知整体是？", options: ["A. 觉得项目同质化严重，随处都有", "B. 觉得性价比低，经常挑剔价格、质疑价值", "C. 觉得中规中矩，没有记忆点", "D. 认可项目价值，体验满意度高"] },
+        11: { text: "Q11. 门店抗衰、高端高客单项目的成交体感是？", options: ["A. 有高客单项目，但顾客体验后不愿买单", "B. 有高客单项目，成交越来越吃力", "C. 正在筹备引进高客单抗衰项目", "D. 高客单项目成交顺畅、认可度高"] },
+        12: { text: "Q12. 门店高客单项目难以成交的核心体感阻力是？", options: ["A. 顾客主观觉得定价偏高，不愿消费", "B. 项目效果感知不清晰，顾客没有消费动力", "C. 顾客不信任项目效果，顾虑较多", "D. 员工不会铺垫引导，成交话术缺失", "E. 从未复盘，不清楚核心问题"] },
+        13: { text: "Q13. 门店员工主动邀约顾客、推广新项目的状态是？", options: ["A. 被动等待安排，几乎不会主动邀约推广", "B. 害怕顾客拒绝，不敢主动开口", "C. 需要老板紧盯督促，才会被动执行", "D. 主动积极，常态化邀约推广新项目"] },
+        14: { text: "Q14. 顾客体验完项目后，员工自然转卡升单的能力体感是？", options: ["A. 基本无法完成转卡升单", "B. 只会生硬报活动价，不会自然转化", "C. 偶尔能成功转卡，状态不稳定", "D. 擅长自然转卡，成交转化流畅"] },
+        15: { text: "Q15. 门店朋友圈、短视频等线上内容输出状态是？", options: ["A. 基本不做任何内容输出", "B. 想做但没有思路，不知道输出什么内容", "C. 偶尔更新，没有固定节奏", "D. 常态化持续输出，内容稳定"] },
+        16: { text: "Q16. 门店抖音、小红书、视频号、本地团购等线上运营体感是？", options: ["A. 从未做过线上运营", "B. 想做但没有专人负责落地", "C. 尝试做过，但完全没有效果", "D. 常态化运营，有稳定线上引流效果"] },
+        17: { text: "Q17. 门店做拓客、锁客活动时，最常见的问题是？", options: ["A. 没有做活动的习惯，完全不会落地", "B. 活动落地后，员工执行敷衍、不到位", "C. 有顾客到店，但几乎不成交消费", "D. 活动没人参与，引流效果差", "E. 活动做完就结束，没有后续复购留存"] },
+        18: { text: "Q18. 若有一套适配门店、低门槛、高复购的门店增收项目，您是否愿意深入了解？", options: ["A. 愿意，想尽快优化门店经营现状", "B. 可以了解，想尝试突破门店瓶颈", "C. 暂时观望，暂时不想调整", "D. 完全不考虑"] }
+    };
+
+    let userSelections = {};
+
+    // 渲染全部题目（类似问卷星点选）
+    function renderQuestions() {
+        const container = document.getElementById('questionsContainer');
+        container.innerHTML = '';
+        for (let qid = 1; qid <= 18; qid++) {
+            const q = questionsData[qid];
+            const div = document.createElement('div');
+            div.className = 'question-item';
+            div.setAttribute('data-qid', qid);
+            const titleSpan = document.createElement('div');
+            titleSpan.className = 'question-text';
+            titleSpan.innerText = q.text;
+            div.appendChild(titleSpan);
+
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'options';
+            q.options.forEach(opt => {
+                const optKey = opt.charAt(0);
+                const radioId = `q${qid}_${optKey}`;
+                const radioWrapper = document.createElement('div');
+                radioWrapper.className = 'option-radio';
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = `q${qid}`;
+                radio.value = optKey;
+                radio.id = radioId;
+                const label = document.createElement('label');
+                label.htmlFor = radioId;
+                label.innerText = opt;
+                radioWrapper.appendChild(radio);
+                radioWrapper.appendChild(label);
+                radio.addEventListener('change', () => {
+                    userSelections[qid] = optKey;
+                    // 清除同一题其他高亮
+                    document.querySelectorAll(`.question-item[data-qid='${qid}'] .option-radio`).forEach(el => el.classList.remove('selected'));
+                    radioWrapper.classList.add('selected');
+                });
+                // 恢复选中状态
+                if (userSelections[qid] === optKey) {
+                    radio.checked = true;
+                    radioWrapper.classList.add('selected');
+                }
+                optionsDiv.appendChild(radioWrapper);
+            });
+            div.appendChild(optionsDiv);
+            container.appendChild(div);
+        }
+    }
+
+    // 计算总分 (Q1-Q17)
+    function computeTotalScore() {
+        let total = 0;
+        for (let qid = 1; qid <= 17; qid++) {
+            const selected = userSelections[qid];
+            if (selected && scoreMap[qid] && scoreMap[qid][selected] !== undefined) {
+                total += scoreMap[qid][selected];
+            } else {
+                return null;
+            }
+        }
+        return total;
+    }
+
+    function getStoreTypeByScore(score) {
+        if (score <= 4) return "增长瓶颈型";
+        if (score <= 32) return "执行薄弱型";
+        if (score <= 60) return "内容浪费型";
+        if (score <= 88) return "执行瘫痪型";
+        if (score <= 116) return "项目同质化型";
+        if (score <= 144) return "新客枯竭型";
+        if (score <= 172) return "老客空心型";
+        return "利润断层型";
+    }
+
+    function getDiagnosisReport(storeType, score, q18Choice) {
+        const typeMap = {
+            "增长瓶颈型": { core: "您的门店无明显经营短板，各维度经营状态平稳，但业绩长期卡在固定区间，无法实现增量突破。", deep: "原有经营模式已经固化，无新的增长抓手、无新的盈利突破口，陷入稳定但不增长的经营僵局。", warn: "美业市场持续迭代，原地踏步就是退步，长期无法突破增长瓶颈，会逐渐被新型门店替代。", guide: "建议您添加增长顾问，领取专属门店增长突破诊断，挖掘门店全新增长机会。" },
+            "执行薄弱型": { core: "门店经营思路、活动方案能落地构思，但执行环节严重缺位。员工消极应付，规划停留在纸面。", deep: "缺少标准化落地细则、过程管控与奖惩机制，员工依赖老板紧盯被动做事。", warn: "同行依靠标准化落地持续拓客增收，本店空有方法却无法转化，资源浪费。", guide: "建议您添加增长顾问，领取专属门店落地执行卡点深度诊断报告，梳理执行力诱因。" },
+            "内容浪费型": { core: "具备线上运营意识，但无法将线上流量转化为到店成交，流量资源严重浪费。", deep: "无内容引流转化路径、无适配线上体验项目，不会承接公域流量。", warn: "空有运营投入、无业绩产出，错失新美业流量红利。", guide: "建议您添加增长顾问，领取专属门店内容转化卡点诊断，梳理流量变现短板。" },
+            "执行瘫痪型": { core: "清楚门店存在问题并尝试调整，但始终无法落地执行，员工配合度低。", deep: "门店无标准化执行SOP、无监督复盘体系，老板发力、团队躺平。", warn: "再好的经营思路没有落地执行都是空谈，逐渐被执行力强的同行超越。", guide: "建议您添加增长顾问，领取专属门店执行体系卡点诊断，梳理落地机制。" },
+            "项目同质化型": { core: "门店项目老旧无新鲜感，与周边高度雷同，顾客感知价值低。", deep: "无核心主推项目、项目结构杂乱，不会包装项目价值，靠低价吸引客户。", warn: "无差异化的门店没有定价权，长期陷入低价内卷，利润被持续压缩。", guide: "建议您添加增长顾问，领取专属门店项目结构卡点诊断，梳理差异化短板。" },
+            "新客枯竭型": { core: "没有稳定可持续的新客获客渠道，新客增量极少，增长停滞。", deep: "缺少低门槛引流项目，新客到店后无成熟转化路径。", warn: "老客自然流失不可逆，无新客补充导致客流萎缩。", guide: "建议您添加增长顾问，领取专属门店新客引流卡点诊断，梳理获客短板。" },
+            "老客空心型": { core: "沉淀了会员资源，但大量老客沉睡，缺少稳定复购现金流。", deep: "无标准化老客激活体系、无高频复购卡项体系，员工不会维护唤醒沉睡客户。", warn: "老客是核心资产，复购低迷仅靠零散新客支撑，业绩风险大。", guide: "建议您添加增长顾问，领取专属门店老客复购卡点诊断，梳理沉睡客户流失原因。" },
+            "利润断层型": { core: "基础项目可正常成交，但高端抗衰高客单项目难以突破，客流有但利润微薄。", deep: "缺少顾客价值感知铺垫、员工高客单成交能力薄弱，顾客信任不足。", warn: "长期依赖低价基础项目，无法提升客单价，陷入越忙越不赚钱恶性循环。", guide: "建议您添加增长顾问，领取专属门店高客单盈利诊断，挖掘利润升级突破口。" }
+        };
+        const info = typeMap[storeType] || typeMap["增长瓶颈型"];
+        let grade = "C类客户（长效种草）", script = "";
+        if (q18Choice === "A") { grade = "A类客户（重点跟进）"; script = "高意向，立即添加顾问，优先给出门店增收方案。"; }
+        else if (q18Choice === "B") { grade = "B类客户（培育跟进）"; script = "意向明确，可推送瓶颈案例+体验邀约，培育深入了解。"; }
+        else { grade = "C类客户（长效种草）"; script = "保持长线内容种草，定期发送行业报告/门店突围案例。"; }
+        return { info, grade, script };
+    }
+
+    function showToast(msg, duration = 2000) {
+        let toast = document.querySelector('.toast-msg');
+        if(toast) toast.remove();
+        let div = document.createElement('div');
+        div.className = 'toast-msg';
+        div.innerText = msg;
+        document.body.appendChild(div);
+        setTimeout(() => div.remove(), duration);
+    }
+
+    // 分享逻辑：复制链接 -> 弹二维码
+    function handleShareAndShowQr() {
+        const url = window.location.href;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url).then(() => {
+                showToast("✅ 链接已复制，可分享给微信好友");
+                showQrModal();
+            }).catch(() => {
+                fallbackCopy(url);
+            });
+        } else {
+            fallbackCopy(url);
+        }
+    }
+
+    function fallbackCopy(text) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+            document.execCommand('copy');
+            showToast("✅ 链接已复制，可分享给好友");
+            showQrModal();
+        } catch (err) {
+            alert("请手动复制链接：" + text);
+            showQrModal();
+        }
+        document.body.removeChild(textarea);
+    }
+
+    function showQrModal() {
+        const modal = document.getElementById('qrModal');
+        if (modal) modal.style.display = 'flex';
+    }
+    function hideModal() {
+        const modal = document.getElementById('qrModal');
+        if (modal) modal.style.display = 'none';
+    }
+
+    // 展示诊断结果
+    function showResult() {
+        const name = document.getElementById('name').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const wechat = document.getElementById('wechat').value.trim();
+        if (!name || !phone || !wechat) {
+            alert("请填写称呼、手机号、微信号（用于接收诊断报告）");
+            return;
+        }
+        for (let i = 1; i <= 17; i++) {
+            if (!userSelections[i]) {
+                alert(`请完成第 ${i} 题后再提交，确保诊断精准。`);
+                return;
+            }
+        }
+        if (!userSelections[18]) {
+            alert("请完成 Q18 意向选择题");
+            return;
+        }
+        const total = computeTotalScore();
+        if (total === null) { alert("请完整作答前17题"); return; }
+        const storeType = getStoreTypeByScore(total);
+        const q18val = userSelections[18];
+        const { info, grade, script } = getDiagnosisReport(storeType, total, q18val);
+        const city = document.getElementById('city').value || "未填";
+        const shopName = document.getElementById('shopName').value || "您的门店";
+
+        const resultHTML = `
+            <div class="result-card">
+                <div class="result-badge">📌 专属经营诊断报告 · 真实体感</div>
+                <div class="result-title">${storeType}</div>
+                <div class="result-score">总分：${total} 分 | ${shopName} | ${city}</div>
+                <div class="pain-point"><strong>🔍 核心问题</strong><br>${info.core}</div>
+                <div class="deep-reason"><strong>🧠 深层卡点</strong><br>${info.deep}</div>
+                <div class="warning"><strong>⚠️ 经营隐患</strong><br>${info.warn}</div>
+                <div class="next-guide"><strong>📌 下一步引导</strong><br>${info.guide}<br>
+                <button class="consult-btn" id="consultTrigger">➕ 添加增长顾问</button>
+                <button class="share-btn" id="shareReportBtn">📤 分享给同行朋友</button>
+                </div>
+                <hr style="margin: 18px 0;">
+                <div><strong>🎯 线索分级：${grade}</strong><br>📞 跟进策略：${script}<br>✨ 顾问将根据 ${phone}/${wechat} 推送完整诊断方案。</div>
+                <div style="margin-top: 12px; font-size: 11px; color:#7e8ba3;">基于新美业增长模型，精准定位卡点优先级。</div>
+            </div>
+        `;
+        const resultArea = document.getElementById('resultArea');
+        resultArea.innerHTML = resultHTML;
+        resultArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        document.getElementById('consultTrigger')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert(`✅ 增长顾问已记录（${name} ${phone}），将主动添加微信 ${wechat}，发送完整诊断报告。`);
+        });
+        document.getElementById('shareReportBtn')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            handleShareAndShowQr();
+        });
+    }
+
+    // 事件绑定
+    document.getElementById('submitBtn').addEventListener('click', showResult);
+    document.getElementById('closeModalBtn')?.addEventListener('click', hideModal);
+    window.addEventListener('click', (e) => { if (e.target === document.getElementById('qrModal')) hideModal(); });
+
+    renderQuestions();
+    // 可选预设兼容无干扰
+</script>
+</body>
+</html>
