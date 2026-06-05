@@ -335,17 +335,6 @@
                 required: true
             }]
         });
-        // 第1页: 门店基础信息
-        pagesData.push({
-            title: "门店基础档案",
-            questions: [
-                { id: "shopType", text: "门店类型", type: "radio", options: ["传统美容院", "新美业皮肤管理店", "科技美肤店", "养生美容综合店", "双美中心", "其他"], required: true },
-                { id: "dailyTraffic", text: "门店日均到店人数", type: "radio", options: ["5人以下", "5-10人", "10-30人", "30-50人", "50人以上"], required: true },
-                { id: "mainProjects", text: "门店目前主营项目（可多选）", type: "checkbox", options: ["面部护理", "身体养生", "抗衰项目", "光电项目", "皮肤管理", "私密", "产康", "头疗", "其他"], required: true },
-                { id: "antiAging", text: "是否有抗衰项目", type: "radio", options: ["有，经营状态尚可", "有，经营状态一般", "有，顾客认可度低", "没有，正在考虑引进", "暂时不考虑"], required: true },
-                { id: "willingDiagnosis", text: "是否愿意获取专属门店增长卡点诊断", type: "radio", options: ["愿意", "可以了解", "暂时观望"], required: true }
-            ]
-        });
         // 模块一 Q1-3
         pagesData.push({ title: "模块一：基础经营体感", questions: [
             { id: "q1", text: "Q1. 您门店日常到店客流的整体体感是？", type: "radio", options: ["A. 客流极少，门店偏冷清","B. 客流偏少，日常没什么人气","C. 客流中等，平平无奇无增量","D. 客流偏多，基础人气充足","E. 客流充足，门店日常热闹"], required: true },
