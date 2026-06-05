@@ -262,8 +262,8 @@
     <div class="modal-content">
         <div class="modal-title">👥 美业增长交流群</div>
         <div class="modal-sub">扫码加入，获取活动模板 / 诊断答疑</div>
-        <img id="groupQrImage" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23e8f3e2'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-size='14' fill='%234caf50'%3E群聊二维码%3C/text%3E%3C/svg%3E" alt="群二维码">
-        <div style="font-size:12px; margin-top:6px;">微信长按识别 加入交流</div>
+        <img id="groupQrImage" src="code.jpg" alt="群二维码">
+        <div style="font-size:12px; margin-top:6px; color:#6b7280;">在微信内请点击右上角“···”菜单，选择“发送给朋友”或“复制链接”，完成分享后可扫码加入群聊。</div>
         <button class="close-modal" id="closeModalBtn">关闭</button>
     </div>
 </div>
@@ -275,8 +275,8 @@
         <div class="modal-sub">为保证资源互换，请先将本诊断报告分享给至少一位同行，完成后可查看入群二维码。</div>
         <div style="font-size:13px; text-align:left; margin-top:12px;">分享方式：</div>
         <ol style="text-align:left; font-size:13px; margin:6px 0 0 18px;">
-            <li>使用手机打开当前页面，点击“分享”并发送给至少一位同行；</li>
-            <li>若您的浏览器支持系统分享（推荐），请使用系统分享完成动作；</li>
+            <li>若在微信内打开，请点击右上角“···”或菜单，选择“发送给朋友”或“复制链接”，把链接发送给至少一位同行；</li>
+            <li>若浏览器支持系统分享（推荐），也可直接使用系统分享完成动作；</li>
             <li>无法使用系统分享时，请复制链接并通过微信/朋友圈/私信分享给朋友，然后点击“我已分享”。</li>
         </ol>
         <button class="close-modal" id="shareCopiedBtn" style="background:#5d8c5a;">复制链接并分享</button>
@@ -455,6 +455,22 @@
             const qid = el.closest('.question-group').dataset.qid;
             const type = el.closest('.question-group').dataset.type;
             const value = el.dataset.val;
+            // 允许点击整个选项框来选中（兼容 label / 文本点击）
+            el.addEventListener('click', (e) => {
+                // 如果直接点击到了内部的 input，让 input 的 change 处理负责，不要在这里重复处理
+                if (e.target && e.target.tagName && e.target.tagName.toLowerCase() === 'input') return;
+                const inp = el.querySelector('input');
+                if (!inp) return;
+                if (type === 'radio') {
+                    if (!inp.checked) {
+                        inp.checked = true;
+                        inp.dispatchEvent(new Event('change', { bubbles: true }));
+                    }
+                } else if (type === 'checkbox') {
+                    inp.checked = !inp.checked;
+                    inp.dispatchEvent(new Event('change', { bubbles: true }));
+                }
+            });
             if (type === 'radio') {
                 input.addEventListener('change', () => {
                     if (input.checked) {
@@ -580,8 +596,13 @@
         if (!identity) { alert("请先选择身份"); return; }
         // 小白路径：不生成诊断报告
         if (isBeginner || identity === 'B. 准备入行的行业小白') {
-            document.getElementById('resultArea').innerHTML = `<div class="result-card"><div style="font-weight:700;margin-bottom:12px;">✨ 感谢您的参与</div><div>您属于准备入行的行业小白，暂时不提供门店深度诊断报告。欢迎添加增长顾问，获取开店指导与行业资料。</div><button class="consult-btn" id="consultThankBtn">➕ 添加顾问</button></div>`;
-            document.getElementById('consultThankBtn')?.addEventListener('click',()=> alert("顾问将为您提供开店支持与学习资料"));
+            // 显示为独立结果页面
+            document.getElementById('progressArea').style.display = 'none';
+            document.getElementById('pagesContainer').style.display = 'none';
+            const simpleHTML = `<div class="page-card"><div class="page-header">诊断结果</div><div class="page-body"><div style="font-weight:700;font-size:1.2rem;margin-bottom:10px;">✨ 感谢您的参与</div><div style="margin-bottom:12px;">您属于准备入行的行业小白，暂时不提供门店深度诊断报告。可加入交流群或查看入门资料，祝您筹店顺利。</div><div style="margin-top:12px;"><button class="share-btn" id="shareResBtnSimple">📤 分享给同行朋友</button></div></div></div>`;
+            document.getElementById('resultArea').innerHTML = simpleHTML;
+            document.getElementById('shareResBtnSimple')?.addEventListener('click', ()=> shareDiagnosis());
+            window.scrollTo(0,0);
             return;
         }
         // 同行必须完整填写Q1-Q17
@@ -606,13 +627,35 @@
             "利润断层型":{ core:"高客单难转化，利润微薄", deep:"价值感知不足", warn:"越忙越不赚钱", guide:"领取高客单盈利诊断" }
         };
         const info = typeMap[storeType];
-        let grade = "C类客户（长效种草）";
-        if (q18Choice === 'A') grade = "A类客户（重点跟进）";
-        else if (q18Choice === 'B') grade = "B类客户（培育跟进）";
-        const resultHTML = `<div class="result-card"><div class="result-badge" style="background:#e8f3e2;">📌 专属诊断报告</div><div class="result-title" style="color:#2e7d32;">${storeType}</div><div class="result-score" style="background:#eef5ea;">总分：${score} 分</div><div style="margin:12px 0"><strong>🔍 核心问题</strong><br>${info.core}</div><div style="margin:12px 0"><strong>🧠 深层卡点</strong><br>${info.deep}</div><div style="margin:12px 0"><strong>⚠️ 经营隐患</strong><br>${info.warn}</div><div style="margin:12px 0"><strong>📌 下一步引导</strong><br>${info.guide}<br><button class="consult-btn" id="consultResBtn">➕ 添加增长顾问</button><button class="share-btn" id="shareResBtn">📤 分享给同行朋友</button></div><hr><div>🎯 ${grade} | 顾问将联系您提供完整方案</div></div>`;
-        document.getElementById('resultArea').innerHTML = resultHTML;
-        document.getElementById('consultResBtn')?.addEventListener('click',()=> alert("顾问将添加您微信，发送专属诊断包"));
+        // 切换为结果页展示：隐藏问卷与进度，置顶显示分数与诊断内容
+        document.getElementById('progressArea').style.display = 'none';
+        document.getElementById('pagesContainer').style.display = 'none';
+        const resultPageHTML = `
+            <div class="page-card" style="margin-top:18px;">
+                <div class="page-header">诊断结果</div>
+                <div class="page-body">
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+                        <div style="flex:1">
+                            <div style="font-size:1rem;color:#6b8f6b;font-weight:700;">总分</div>
+                            <div style="font-size:2.2rem;font-weight:900;color:#2e7d32;margin-top:6px;">${score} 分</div>
+                            <div style="margin-top:8px;font-size:1.1rem;font-weight:800;color:#244e24;">${storeType}</div>
+                        </div>
+                        <div style="min-width:120px;text-align:right;"></div>
+                    </div>
+                    <div style="margin-top:16px;padding-top:8px;">
+                        <div style="margin:12px 0"><strong>🔍 核心问题</strong><br>${info.core}</div>
+                        <div style="margin:12px 0"><strong>🧠 深层卡点</strong><br>${info.deep}</div>
+                        <div style="margin:12px 0"><strong>⚠️ 经营隐患</strong><br>${info.warn}</div>
+                        <div style="margin:12px 0"><strong>📌 下一步引导</strong><br>${info.guide}</div>
+                        <div style="margin-top:14px;"><button class="share-btn" id="shareResBtn">📤 分享给同行朋友</button></div>
+                    </div>
+                    <hr style="margin:18px 0;">
+                </div>
+            </div>
+        `;
+        document.getElementById('resultArea').innerHTML = resultPageHTML;
         document.getElementById('shareResBtn')?.addEventListener('click',()=>{ shareDiagnosis(); });
+        window.scrollTo(0,0);
 
         // 插入完整结论（折叠显示）
         const fullConclusion = `
@@ -626,7 +669,7 @@
 
     经营隐患：美业市场持续迭代，原地踏步就是退步，长期无法突破增长瓶颈，会逐渐被新型门店替代，业绩逐步下滑。
 
-    下一步引导：建议您添加增长顾问，领取专属门店增长突破诊断，挖掘门店全新增长机会。
+    下一步引导：建议领取专属门店增长突破诊断，挖掘门店全新增长机会。
 
     2. 执行薄弱型门店（低风险）
 
@@ -638,7 +681,7 @@
 
     经营隐患：同行依靠标准化落地持续拓客增收，本店空有方法却无法落地转化，资源白白浪费，门店长期停滞不前，客源、业绩慢慢被周边竞品瓜分，逐年增收无望。
 
-    下一步引导：建议您添加增长顾问，领取专属门店落地执行卡点深度诊断报告，梳理团队执行力偏弱的核心诱因。
+    下一步引导：建议领取专属门店落地执行卡点深度诊断报告，梳理团队执行力偏弱的核心诱因。
 
     3. 内容浪费型门店（低风险、高潜力）
 
@@ -650,7 +693,7 @@
 
     经营隐患：空有运营投入、无业绩产出，长期消耗老板精力，无法发挥线上流量的增长价值，错失新美业流量红利。
 
-    下一步引导：建议您添加增长顾问，领取专属门店内容转化卡点诊断，梳理流量变现短板。
+    下一步引导：建议领取专属门店内容转化卡点诊断，梳理流量变现短板。
 
     4. 执行瘫痪型门店（中风险）
 
@@ -662,7 +705,7 @@
 
     经营隐患：再好的经营思路、再好的项目，没有落地执行都是空谈，门店长期原地踏步，逐渐被执行力强的同行超越。
 
-    下一步引导：建议您添加增长顾问，领取专属门店执行体系卡点诊断，梳理团队落地核心问题。
+    下一步引导：建议领取专属门店执行体系卡点诊断，梳理团队落地核心问题。
 
     5. 项目同质化型门店（中风险）
 
@@ -674,7 +717,7 @@
 
     经营隐患：无差异化的门店没有定价权，长期陷入低价内卷，利润被持续压缩，无法支撑门店长期经营和升级。
 
-    下一步引导：建议您添加增长顾问，领取专属门店项目结构卡点诊断，梳理门店差异化短板。
+    下一步引导：建议领取专属门店项目结构卡点诊断，梳理门店差异化短板。
 
     6. 新客枯竭型门店（中高风险）
 
@@ -686,7 +729,7 @@
 
     经营隐患：老客自然流失不可逆，无新客补充会导致门店客流持续萎缩，人气越来越差，最终陷入经营僵局。
 
-    下一步引导：建议您添加增长顾问，领取专属门店新客引流卡点诊断，梳理门店获客核心短板。
+    下一步引导：建议领取专属门店新客引流卡点诊断，梳理门店获客核心短板。
 
     7. 老客空心型门店（高风险）
 
@@ -698,7 +741,7 @@
 
     经营隐患：老客是门店核心资产，长期复购低迷，仅靠零散新客支撑，门店经营极不稳定，随时会出现业绩断崖式下滑。
 
-    下一步引导：建议您添加增长顾问，领取专属门店老客复购卡点诊断，梳理沉睡客户流失核心原因。
+    下一步引导：建议领取专属门店老客复购卡点诊断，梳理沉睡客户流失核心原因。
 
     8. 利润断层型门店（高风险）
 
@@ -710,7 +753,7 @@
 
     经营隐患：长期依赖低价基础项目盈利，无法提升客单价，在美业同质化竞争中，极易陷入价格战，最终陷入越忙越不赚钱的恶性循环。
 
-    下一步引导：建议您添加增长顾问，领取专属门店利润卡点深度诊断报告，梳理高客单转化核心问题。
+    下一步引导：建议领取专属门店利润卡点深度诊断报告，梳理高客单转化核心问题。
     `;
         const conclusionWrap = document.createElement('div');
         conclusionWrap.style.marginTop = '12px';
