@@ -629,14 +629,13 @@
             html += `</div><div class="warning-msg" id="warn-${q.id}">请回答此题</div></div>`;
         });
         html += `<div class="btn-group">`;
-        // 小白模式下 且 当前是最后一页（Q18页）时，不显示上一页按钮；另外如果是小白跳过来的，也不能显示上一页
+        // 小白逻辑：如果是小白身份，在最后一页显示“上一页”返回到筛选页；其他身份按常规上一页显示
         const isLastPage = (currentPage === pagesData.length - 1);
         if (!isBeginner && currentPage > 0) {
             html += `<button class="btn-prev" id="prevBtn">◀ 上一页</button>`;
-        } else if (!isBeginner && currentPage === 0) {
-            // 第一页没有上一页
         } else if (isBeginner && isLastPage) {
-        } else if (isBeginner && !isLastPage) {
+            // 小白在最后一页时，上一页应回到第一个筛选题（索引0）
+            html += `<button class="btn-prev" id="prevBtn">◀ 上一页</button>`;
         }
         if (isLastPage) {
             html += `<button class="btn-submit-final" id="submitFinalBtn">提交诊断</button>`;
@@ -650,8 +649,25 @@
         // 绑定选项事件
         bindOptionEvents();
         // 绑定按钮事件
-        document.getElementById('prevBtn')?.addEventListener('click', () => { if (currentPage > 0 && !isBeginner) { currentPage--; renderPage(); } });
-        document.getElementById('nextBtn')?.addEventListener('click', () => { if (validateCurrentPage()) { currentPage++; renderPage(); } });
+        document.getElementById('prevBtn')?.addEventListener('click', () => {
+            if (isBeginner && currentPage === pagesData.length - 1) {
+                // 小白从最后一页返回到筛选题
+                currentPage = 0;
+                renderPage();
+                return;
+            }
+            if (currentPage > 0) { currentPage--; renderPage(); }
+        });
+        document.getElementById('nextBtn')?.addEventListener('click', () => {
+            if (!validateCurrentPage()) return;
+            // 若为小白身份且当前在第一个筛选题，点击下一页直接跳到最后一题
+            if (isBeginner && currentPage === 0) {
+                currentPage = pagesData.length - 1;
+                renderPage();
+                return;
+            }
+            if (currentPage < pagesData.length - 1) { currentPage++; renderPage(); }
+        });
         document.getElementById('submitFinalBtn')?.addEventListener('click', () => { if (validateCurrentPage()) handleFinalSubmit(); });
     }
 
@@ -684,15 +700,10 @@
                     if (input.checked) {
                         if (qid.startsWith('q')) qAnswers[qid] = value;
                         else answers[qid] = value;
-                        // 身份特殊处理：若选中小白，立即跳转到最后一页且不允许返回
+                        // 身份特殊处理：若选中小白，只设置标记（不立即跳转），后续点击“下一页”时会跳到最后一题
                         if (qid === 'identity' && value === 'B. 准备入行的行业小白') {
-                            if (!beginnerJumpDone) {
-                                beginnerJumpDone = true;
-                                isBeginner = true;
-                                currentPage = pagesData.length - 1;
-                                renderPage();
-                                setTimeout(() => alert("您选择了行业小白，只需完成最后一道意向题即可，无需填写诊断问卷。"), 100);
-                            }
+                            isBeginner = true;
+                            beginnerJumpDone = false;
                         } else if (qid === 'identity' && value === 'A. 正在营业的美业同行') {
                             isBeginner = false;
                             beginnerJumpDone = false;
@@ -893,9 +904,9 @@
                     <div style="margin-top:16px;padding-top:8px;">
                         <div style="margin:12px 0"><strong>核心问题</strong><div style="margin-top:6px;color:#334d36;">${info.core}</div></div>
                         <div style="margin:12px 0"><strong>深层卡点</strong><div style="margin-top:6px;color:#334d36;">${info.deep}</div></div>
-                        <div style="margin:12px 0"><strong>经营隐患</strong><div style="margin-top:6px;color:#b33a3a;">${info.warn}</div></div>
+                        <div style="margin:12px 0"><strong>经营隐患</strong><div style="margin-top:6px;color:#334d36;">${info.warn}</div></div>
                         <div style="margin:12px 0"><strong>下一步引导</strong><div style="margin-top:6px;color:#246131;">${info.guide}</div></div>
-                        <div style="margin-top:14px;"><button class="share-btn" id="shareResBtn">分享给同行朋友</button></div>
+                        <div style="margin-top:14px;"><button class="share-btn" id="shareResBtn">分享给同行朋友获得群聊二维码</button></div>
                     </div>
                 </div>
             </div>
