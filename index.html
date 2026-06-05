@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>新美业门店增长力测试 | 浅绿清新版</title>
+    <title>三分钟自测您的门店卡在哪里</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
         }
 
         body {
-            background: #eef5ea;  /* 浅绿基调 */
+            background: #eef5ea;  
             font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
             padding: 20px 16px 50px;
             color: #1e2a3e;
@@ -254,13 +254,13 @@
 
     <div id="pagesContainer"></div>
     <div id="resultArea"></div>
-    <footer>© 新美业增长实验室 · 浅绿清新版 · 精准诊断门店卡点</footer>
+    <footer>© 新美业增长实验室 · 精准诊断门店卡点</footer>
 </div>
 
 <!-- 群聊二维码弹窗 -->
 <div id="qrModal" class="modal">
     <div class="modal-content">
-        <div class="modal-title">👥 美业增长交流群</div>
+        <div class="modal-title">美业增长交流群</div>
         <div class="modal-sub">扫码加入，获取活动模板 / 诊断答疑</div>
         <img id="groupQrImage" src="code.jpg" alt="群二维码">
         <div style="font-size:12px; margin-top:6px; color:#6b7280;">在微信内请点击右上角“···”菜单，选择“发送给朋友”或“复制链接”，完成分享后可扫码加入群聊。</div>
@@ -337,7 +337,7 @@
         });
         // 第1页: 门店基础信息
         pagesData.push({
-            title: "🏪 门店基础档案",
+            title: "门店基础档案",
             questions: [
                 { id: "shopType", text: "门店类型", type: "radio", options: ["传统美容院", "新美业皮肤管理店", "科技美肤店", "养生美容综合店", "双美中心", "其他"], required: true },
                 { id: "dailyTraffic", text: "门店日均到店人数", type: "radio", options: ["5人以下", "5-10人", "10-30人", "30-50人", "50人以上"], required: true },
@@ -347,48 +347,48 @@
             ]
         });
         // 模块一 Q1-3
-        pagesData.push({ title: "📈 模块一：基础经营体感", questions: [
+        pagesData.push({ title: "模块一：基础经营体感", questions: [
             { id: "q1", text: "Q1. 您门店日常到店客流的整体体感是？", type: "radio", options: ["A. 客流极少，门店偏冷清","B. 客流偏少，日常没什么人气","C. 客流中等，平平无奇无增量","D. 客流偏多，基础人气充足","E. 客流充足，门店日常热闹"], required: true },
             { id: "q2", text: "Q2. 您门店目前最稳定的客户来源是？", type: "radio", options: ["A. 老客转介绍为主","B. 朋友圈/微信私域老客为主","C. 抖音/小红书/视频号线上引流","D. 美团/大众点评等本地生活平台","E. 无任何稳定获客渠道，客源全靠随缘"], required: true },
             { id: "q3", text: "Q3. 门店每月新增新客的整体体感是？", type: "radio", options: ["A. 新客极少，几乎没有新增","B. 新客偏少，增量特别有限","C. 新客数量中等，很难突破上限","D. 新客较多，增量状态不错","E. 从未关注统计，完全不清楚新客情况"], required: true }
         ]});
         // 模块二 Q4-5
-        pagesData.push({ title: "🧲 模块二：新客入口能力", questions: [
+        pagesData.push({ title: "模块二：新客入口能力", questions: [
             { id: "q4", text: "Q4. 门店的低门槛体验引流项目，经营体感如何？", type: "radio", options: ["A. 有体验项目，但顾客参与意愿低","B. 有体验项目，引流效果平平","C. 有体验项目，很难沉淀有效客户","D. 没有适配门店的低门槛体验引流项目"], required: true },
             { id: "q5", text: "Q5. 新客首次到店体验后，留存转化的整体状态是？", type: "radio", options: ["A. 很难主动留存，体验完基本就流失","B. 转化一般，必须员工强力推销才有可能成交","C. 转化不稳定，全凭顾客心情","D. 转化顺畅，新客留存意愿高"], required: true }
         ]});
         // 模块三 Q6-8
-        pagesData.push({ title: "🔄 模块三：老客复购能力", questions: [
+        pagesData.push({ title: "模块三：老客复购能力", questions: [
             { id: "q6", text: "Q6. 近3个月门店老客回店消费的整体状态是？", type: "radio", options: ["A. 回店很不稳定，明显下滑","B. 回店状态一般，活跃度大不如前","C. 大量老客沉睡，极少主动回店","D. 老客回店稳定，状态良好"], required: true },
             { id: "q7", text: "Q7. 门店针对沉睡老客，是否有专属激活方式、效果如何？", type: "radio", options: ["A. 没有任何老客激活方法，放任流失","B. 偶尔做激活动作，完全没有固定体系","C. 有激活动作，但效果很不理想","D. 有成熟激活方式，老客回流状态不错"], required: true },
             { id: "q8", text: "Q8. 门店月卡、季卡、年卡等复购体系的经营状态是？", type: "radio", options: ["A. 无系统化复购卡项体系","B. 有卡项，但员工不会主动推广","C. 有卡项，但顾客续费意愿低迷","D. 卡项体系成熟，复购续费稳定"], required: true }
         ]});
         // 模块四 Q9-10
-        pagesData.push({ title: "✨ 模块四：项目更新能力", questions: [
+        pagesData.push({ title: "模块四：项目更新能力", questions: [
             { id: "q9", text: "Q9. 门店现有项目的新鲜感、竞争力体感是？", type: "radio", options: ["A. 项目明显老化，老客兴趣大幅降低","B. 项目新鲜感不足，顾客体验感平平","C. 项目杂乱繁多，没有清晰主推方向","D. 项目新颖有竞争力，顾客认可度高"], required: true },
             { id: "q10", text: "Q10. 顾客对门店现有项目的价值感知整体是？", type: "radio", options: ["A. 觉得项目同质化严重，随处都有","B. 觉得性价比低，经常挑剔价格、质疑价值","C. 觉得中规中矩，没有记忆点","D. 认可项目价值，体验满意度高"], required: true }
         ]});
         // 模块五 Q11-12
-        pagesData.push({ title: "💰 模块五：高客单转化能力", questions: [
+        pagesData.push({ title: "模块五：高客单转化能力", questions: [
             { id: "q11", text: "Q11. 门店抗衰、高端高客单项目的成交体感是？", type: "radio", options: ["A. 有高客单项目，但顾客体验后不愿买单","B. 有高客单项目，成交越来越吃力","C. 正在筹备引进高客单抗衰项目","D. 高客单项目成交顺畅、认可度高"], required: true },
             { id: "q12", text: "Q12. 门店高客单项目难以成交的核心体感阻力是？", type: "radio", options: ["A. 顾客主观觉得定价偏高，不愿消费","B. 项目效果感知不清晰，顾客没有消费动力","C. 顾客不信任项目效果，顾虑较多","D. 员工不会铺垫引导，成交话术缺失","E. 从未复盘，不清楚核心问题"], required: true }
         ]});
         // 模块六 Q13-14
-        pagesData.push({ title: "👥 模块六：员工成交能力", questions: [
+        pagesData.push({ title: "模块六：员工成交能力", questions: [
             { id: "q13", text: "Q13. 门店员工主动邀约顾客、推广新项目的状态是？", type: "radio", options: ["A. 被动等待安排，几乎不会主动邀约推广","B. 害怕顾客拒绝，不敢主动开口","C. 需要老板紧盯督促，才会被动执行","D. 主动积极，常态化邀约推广新项目"], required: true },
             { id: "q14", text: "Q14. 顾客体验完项目后，员工自然转卡升单的能力体感是？", type: "radio", options: ["A. 基本无法完成转卡升单","B. 只会生硬报活动价，不会自然转化","C. 偶尔能成功转卡，状态不稳定","D. 擅长自然转卡，成交转化流畅"], required: true }
         ]});
         // 模块七 Q15-16
-        pagesData.push({ title: "📱 模块七：内容自营能力", questions: [
+        pagesData.push({ title: "模块七：内容自营能力", questions: [
             { id: "q15", text: "Q15. 门店朋友圈、短视频等线上内容输出状态是？", type: "radio", options: ["A. 基本不做任何内容输出","B. 想做但没有思路，不知道输出什么内容","C. 偶尔更新，没有固定节奏","D. 常态化持续输出，内容稳定"], required: true },
             { id: "q16", text: "Q16. 门店抖音、小红书、视频号、本地团购等线上运营体感是？", type: "radio", options: ["A. 从未做过线上运营","B. 想做但没有专人负责落地","C. 尝试做过，但完全没有效果","D. 常态化运营，有稳定线上引流效果"], required: true }
         ]});
         // 模块八 Q17
-        pagesData.push({ title: "🎯 模块八：活动执行能力", questions: [
+        pagesData.push({ title: "模块八：活动执行能力", questions: [
             { id: "q17", text: "Q17. 门店做拓客、锁客活动时，最常见的问题是？", type: "radio", options: ["A. 没有做活动的习惯，完全不会落地","B. 活动落地后，员工执行敷衍、不到位","C. 有顾客到店，但几乎不成交消费","D. 活动没人参与，引流效果差","E. 活动做完就结束，没有后续复购留存"], required: true }
         ]});
         // 最后一页 Q18 (索引10)
-        pagesData.push({ title: "🤝 最后一步", questions: [
+        pagesData.push({ title: "模块九", questions: [
             { id: "q18", text: "Q18. 若有一套适配门店、低门槛、高复购的门店增收项目，您是否愿意深入了解？", type: "radio", options: ["A. 愿意，想尽快优化门店经营现状","B. 可以了解，想尝试突破门店瓶颈","C. 暂时观望，暂时不想调整","D. 完全不考虑"], required: true }
         ]});
     }
@@ -455,22 +455,6 @@
             const qid = el.closest('.question-group').dataset.qid;
             const type = el.closest('.question-group').dataset.type;
             const value = el.dataset.val;
-            // 允许点击整个选项框来选中（兼容 label / 文本点击）
-            el.addEventListener('click', (e) => {
-                // 如果直接点击到了内部的 input，让 input 的 change 处理负责，不要在这里重复处理
-                if (e.target && e.target.tagName && e.target.tagName.toLowerCase() === 'input') return;
-                const inp = el.querySelector('input');
-                if (!inp) return;
-                if (type === 'radio') {
-                    if (!inp.checked) {
-                        inp.checked = true;
-                        inp.dispatchEvent(new Event('change', { bubbles: true }));
-                    }
-                } else if (type === 'checkbox') {
-                    inp.checked = !inp.checked;
-                    inp.dispatchEvent(new Event('change', { bubbles: true }));
-                }
-            });
             if (type === 'radio') {
                 input.addEventListener('change', () => {
                     if (input.checked) {
@@ -596,13 +580,7 @@
         if (!identity) { alert("请先选择身份"); return; }
         // 小白路径：不生成诊断报告
         if (isBeginner || identity === 'B. 准备入行的行业小白') {
-            // 显示为独立结果页面
-            document.getElementById('progressArea').style.display = 'none';
-            document.getElementById('pagesContainer').style.display = 'none';
-            const simpleHTML = `<div class="page-card"><div class="page-header">诊断结果</div><div class="page-body"><div style="font-weight:700;font-size:1.2rem;margin-bottom:10px;">✨ 感谢您的参与</div><div style="margin-bottom:12px;">您属于准备入行的行业小白，暂时不提供门店深度诊断报告。可加入交流群或查看入门资料，祝您筹店顺利。</div><div style="margin-top:12px;"><button class="share-btn" id="shareResBtnSimple">📤 分享给同行朋友</button></div></div></div>`;
-            document.getElementById('resultArea').innerHTML = simpleHTML;
-            document.getElementById('shareResBtnSimple')?.addEventListener('click', ()=> shareDiagnosis());
-            window.scrollTo(0,0);
+            document.getElementById('resultArea').innerHTML = `<div class="result-card"><div style="font-weight:700;margin-bottom:12px;">✨ 感谢您的参与</div><div>您属于准备入行的行业小白，暂时不提供门店深度诊断报告。可加入交流群或查看入门资料，祝您筹店顺利。</div></div>`;
             return;
         }
         // 同行必须完整填写Q1-Q17
@@ -617,153 +595,66 @@
         const storeType = getStoreType(score);
         const q18Choice = qAnswers.q18 ? qAnswers.q18.charAt(0) : 'C';
         const typeMap = {
-            "增长瓶颈型":{ core:"无明显短板但业绩无法突破", deep:"经营模式固化无增长抓手", warn:"原地踏步会被替代", guide:"领取增长突破诊断" },
-            "执行薄弱型":{ core:"方案落地缺位，员工执行力不足", deep:"缺少标准化与奖惩机制", warn:"资源浪费，被竞品瓜分", guide:"领取执行卡点诊断" },
-            "内容浪费型":{ core:"线上流量无法转化", deep:"无转化路径与体验项目", warn:"空耗精力错失红利", guide:"领取内容转化诊断" },
-            "执行瘫痪型":{ core:"无法落地执行，流于形式", deep:"无SOP无复盘", warn:"团队躺平被超越", guide:"领取执行体系诊断" },
-            "项目同质化型":{ core:"项目老旧无差异化", deep:"无核心主推项目", warn:"陷入低价内卷", guide:"领取项目结构诊断" },
-            "新客枯竭型":{ core:"无稳定新客渠道", deep:"缺少低门槛引流", warn:"客流萎缩", guide:"领取新客引流诊断" },
-            "老客空心型":{ core:"老客沉睡，复购低迷", deep:"无激活体系", warn:"业绩断崖风险", guide:"领取老客复购诊断" },
-            "利润断层型":{ core:"高客单难转化，利润微薄", deep:"价值感知不足", warn:"越忙越不赚钱", guide:"领取高客单盈利诊断" }
+            "增长瓶颈型": {
+                "core": "您的门店无明显经营短板，各维度经营状态平稳，但业绩长期卡在固定区间，无论如何调整，无法实现增量突破。",
+                "deep": "原有经营模式已经固化，无新的增长抓手、无新的盈利突破口，陷入稳定但不增长的经营僵局。",
+                "warn": "美业市场持续迭代，原地踏步就是退步，长期无法突破增长瓶颈，会逐渐被新型门店替代，业绩逐步下滑。",
+                "guide": "建议领取专属门店增长突破诊断，挖掘门店全新增长机会。"
+            },
+            "执行薄弱型": {
+                "core": "门店经营思路、活动方案、拓客规划都能落地构思，但落地执行环节严重缺位。老板清楚门店各类经营痛点，制定的拓客、锁客、升单方案难以落地，员工消极应付、执行力不足，再好的运营规划都只停留在纸面，没办法转化成实际到店与业绩。",
+                "deep": "缺少标准化落地细则、过程管控与奖惩机制，员工缺少目标驱动力，依赖老板紧盯才被动做事，无自主执行意识，制度与活动缺少落地监督闭环。",
+                "warn": "同行依靠标准化落地持续拓客增收，本店空有方法却无法落地转化，资源白白浪费，门店长期停滞不前，客源、业绩慢慢被周边竞品瓜分，逐年增收无望。",
+                "guide": "建议领取专属门店落地执行卡点深度诊断报告，梳理团队执行力偏弱的核心诱因。"
+            },
+            "内容浪费型": {
+                "core": "您具备线上内容运营的意识和基础，愿意投入时间精力做朋友圈、短视频、本地生活，但无法将线上流量转化为到店、成交客户，流量资源严重浪费。",
+                "deep": "无内容引流转化路径、无适配线上的体验项目，不会承接公域流量，导致线上运营只涨曝光、不涨业绩。",
+                "warn": "空有运营投入、无业绩产出，长期消耗老板精力，无法发挥线上流量的增长价值，错失新美业流量红利。",
+                "guide": "建议领取专属门店内容转化卡点诊断，梳理流量变现短板。"
+            },
+            "执行瘫痪型": {
+                "core": "您清楚门店存在的经营问题，也尝试过做活动、做调整，但始终无法落地执行，员工配合度低、落地敷衍，所有经营动作都流于形式、没有结果。",
+                "deep": "门店无标准化执行SOP、无监督复盘体系，员工无执行动力、无统一落地标准，老板单人发力、团队全员躺平。",
+                "warn": "再好的经营思路、再好的项目，没有落地执行都是空谈，门店长期原地踏步，逐渐被执行力强的同行超越。",
+                "guide": "建议领取专属门店执行体系卡点诊断，梳理团队落地核心问题。"
+            },
+            "项目同质化型": {
+                "core": "您的门店项目老旧、无新鲜感，和周边同行高度雷同，顾客感知价值低、无记忆点，无法让顾客主动选择、主动复购。",
+                "deep": "无核心主推项目、项目结构杂乱，不会包装项目价值，导致门店没有核心竞争力，只能靠低价吸引客户。",
+                "warn": "无差异化的门店没有定价权，长期陷入低价内卷，利润被持续压缩，无法支撑门店长期经营和升级。",
+                "guide": "建议领取专属门店项目结构卡点诊断，梳理门店差异化短板。"
+            },
+            "新客枯竭型": {
+                "core": "您的门店没有稳定、可持续的新客获客渠道，新客增量极少，门店客流全靠老客消耗，无新鲜血液注入，增长完全停滞。",
+                "deep": "缺少适配门店的低门槛引流项目，新客到店后无成熟转化路径，无法将临时流量沉淀为门店有效客户。",
+                "warn": "老客自然流失不可逆，无新客补充会导致门店客流持续萎缩，人气越来越差，最终陷入经营僵局。",
+                "guide": "建议领取专属门店新客引流卡点诊断，梳理门店获客核心短板。"
+            },
+            "老客空心型": {
+                "core": "您的门店沉淀了一定会员资源，但大量老客处于沉睡状态，主动回店意愿差，老客活跃度持续下滑，门店缺少稳定的复购现金流支撑。",
+                "deep": "无标准化老客激活体系、无高频复购卡项体系，员工不会维护老客、不会唤醒沉睡客户，老客没有持续到店消费的核心理由。",
+                "warn": "老客是门店核心资产，长期复购低迷，仅靠零散新客支撑，门店经营极不稳定，随时会出现业绩断崖式下滑。",
+                "guide": "建议领取专属门店老客复购卡点诊断，梳理沉睡客户流失核心原因。"
+            },
+            "利润断层型": {
+                "core": "您的门店基础项目可以正常成交，但高端抗衰、高客单项目始终难以突破。门店日常看着有客流、有成交，但整体利润微薄，辛苦不赚钱，门店盈利天花板极低。",
+                "deep": "不是项目效果不足，而是缺少顾客价值感知铺垫、员工高客单成交能力薄弱，顾客对高价项目信任度不足，无法完成升单转化。",
+                "warn": "长期依赖低价基础项目盈利，无法提升客单价，在美业同质化竞争中，极易陷入价格战，最终陷入越忙越不赚钱的恶性循环。",
+                "guide": "建议领取专属门店利润卡点深度诊断报告，梳理高客单转化核心问题。"
+            }
         };
         const info = typeMap[storeType];
-        // 切换为结果页展示：隐藏问卷与进度，置顶显示分数与诊断内容
-        document.getElementById('progressArea').style.display = 'none';
-        document.getElementById('pagesContainer').style.display = 'none';
-        const resultPageHTML = `
-            <div class="page-card" style="margin-top:18px;">
-                <div class="page-header">诊断结果</div>
-                <div class="page-body">
-                    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
-                        <div style="flex:1">
-                            <div style="font-size:1rem;color:#6b8f6b;font-weight:700;">总分</div>
-                            <div style="font-size:2.2rem;font-weight:900;color:#2e7d32;margin-top:6px;">${score} 分</div>
-                            <div style="margin-top:8px;font-size:1.1rem;font-weight:800;color:#244e24;">${storeType}</div>
-                        </div>
-                        <div style="min-width:120px;text-align:right;"></div>
-                    </div>
-                    <div style="margin-top:16px;padding-top:8px;">
-                        <div style="margin:12px 0"><strong>🔍 核心问题</strong><br>${info.core}</div>
-                        <div style="margin:12px 0"><strong>🧠 深层卡点</strong><br>${info.deep}</div>
-                        <div style="margin:12px 0"><strong>⚠️ 经营隐患</strong><br>${info.warn}</div>
-                        <div style="margin:12px 0"><strong>📌 下一步引导</strong><br>${info.guide}</div>
-                        <div style="margin-top:14px;"><button class="share-btn" id="shareResBtn">📤 分享给同行朋友</button></div>
-                    </div>
-                    <hr style="margin:18px 0;">
-                </div>
-            </div>
-        `;
-        document.getElementById('resultArea').innerHTML = resultPageHTML;
+        const resultHTML = `<div class="result-card"><div class="result-badge" style="background:#e8f3e2;">📌 专属诊断报告</div><div class="result-title" style="color:#2e7d32;">${storeType}</div><div class="result-score" style="background:#eef5ea;">总分：${score} 分</div><div style="margin:12px 0"><strong>核心问题</strong><br>${info.core}</div><div style="margin:12px 0"><strong>深层卡点</strong><br>${info.deep}</div><div style="margin:12px 0"><strong>经营隐患</strong><br>${info.warn}</div><div style="margin:12px 0"><strong>下一步引导</strong><br>${info.guide}<br><button class="share-btn" id="shareResBtn">分享给同行朋友</button></div><hr><div>🎯 分享后即可查看交流群二维码与后续资料</div></div>`;
+        document.getElementById('resultArea').innerHTML = resultHTML;
         document.getElementById('shareResBtn')?.addEventListener('click',()=>{ shareDiagnosis(); });
-        window.scrollTo(0,0);
 
-        // 插入完整结论（折叠显示）
-        const fullConclusion = `
-    1. 增长瓶颈型门店（平稳型）
-
-    门店标签：增长瓶颈型门店 · 业绩无法突破
-
-    核心问题：您的门店无明显经营短板，各维度经营状态平稳，但业绩长期卡在固定区间，无论如何调整，都无法实现增量突破。
-
-    深层卡点：原有经营模式已经固化，无新的增长抓手、无新的盈利突破口，陷入稳定但不增长的经营僵局。
-
-    经营隐患：美业市场持续迭代，原地踏步就是退步，长期无法突破增长瓶颈，会逐渐被新型门店替代，业绩逐步下滑。
-
-    下一步引导：建议领取专属门店增长突破诊断，挖掘门店全新增长机会。
-
-    2. 执行薄弱型门店（低风险）
-
-    门店标签：执行薄弱型门店 · 团队落地能力短板突出
-
-    核心问题：门店经营思路、活动方案、拓客规划都能落地构思，但落地执行环节严重缺位。老板清楚门店各类经营痛点，制定的拓客、锁客、升单方案难以落地落地，员工消极应付、执行力不足，再好的运营规划都只停留在纸面，没办法转化成实际到店与业绩。
-
-    深层卡点：缺少标准化落地细则、过程管控与奖惩机制，员工缺少目标驱动力，依赖老板紧盯才被动做事，无自主执行意识，制度与活动缺少落地监督闭环。
-
-    经营隐患：同行依靠标准化落地持续拓客增收，本店空有方法却无法落地转化，资源白白浪费，门店长期停滞不前，客源、业绩慢慢被周边竞品瓜分，逐年增收无望。
-
-    下一步引导：建议领取专属门店落地执行卡点深度诊断报告，梳理团队执行力偏弱的核心诱因。
-
-    3. 内容浪费型门店（低风险、高潜力）
-
-    门店标签：内容浪费型门店 · 流量转化浪费
-
-    核心问题：您具备线上内容运营的意识和基础，愿意投入时间精力做朋友圈、短视频、本地生活，但无法将线上流量转化为到店、成交客户，流量资源严重浪费。
-
-    深层卡点：无内容引流转化路径、无适配线上的体验项目，不会承接公域流量，导致线上运营只涨曝光、不涨业绩。
-
-    经营隐患：空有运营投入、无业绩产出，长期消耗老板精力，无法发挥线上流量的增长价值，错失新美业流量红利。
-
-    下一步引导：建议领取专属门店内容转化卡点诊断，梳理流量变现短板。
-
-    4. 执行瘫痪型门店（中风险）
-
-    门店标签：执行瘫痪型门店 · 落地能力缺失
-
-    核心问题：您清楚门店存在的经营问题，也尝试过做活动、做调整，但始终无法落地执行，员工配合度低、落地敷衍，所有经营动作都流于形式、没有结果。
-
-    深层卡点：门店无标准化执行SOP、无监督复盘体系，员工无执行动力、无统一落地标准，老板单人发力、团队全员躺平。
-
-    经营隐患：再好的经营思路、再好的项目，没有落地执行都是空谈，门店长期原地踏步，逐渐被执行力强的同行超越。
-
-    下一步引导：建议领取专属门店执行体系卡点诊断，梳理团队落地核心问题。
-
-    5. 项目同质化型门店（中风险）
-
-    门店标签：项目同质化型门店 · 门店无差异化
-
-    核心问题：您的门店项目老旧、无新鲜感，和周边同行高度雷同，顾客感知价值低、无记忆点，无法让顾客主动选择、主动复购。
-
-    深层卡点：无核心主推项目、项目结构杂乱，不会包装项目价值，导致门店没有核心竞争力，只能靠低价吸引客户。
-
-    经营隐患：无差异化的门店没有定价权，长期陷入低价内卷，利润被持续压缩，无法支撑门店长期经营和升级。
-
-    下一步引导：建议领取专属门店项目结构卡点诊断，梳理门店差异化短板。
-
-    6. 新客枯竭型门店（中高风险）
-
-    门店标签：新客枯竭型门店 · 流量增长停滞
-
-    核心问题：您的门店没有稳定、可持续的新客获客渠道，新客增量极少，门店客流全靠老客消耗，无新鲜血液注入，增长完全停滞。
-
-    深层卡点：缺少适配门店的低门槛引流项目，新客到店后无成熟转化路径，无法将临时流量沉淀为门店有效客户。
-
-    经营隐患：老客自然流失不可逆，无新客补充会导致门店客流持续萎缩，人气越来越差，最终陷入经营僵局。
-
-    下一步引导：建议领取专属门店新客引流卡点诊断，梳理门店获客核心短板。
-
-    7. 老客空心型门店（高风险）
-
-    门店标签：老客空心型门店 · 复购流失严重
-
-    核心问题：您的门店沉淀了一定会员资源，但大量老客处于沉睡状态，主动回店意愿差，老客活跃度持续下滑，门店缺少稳定的复购现金流支撑。
-
-    深层卡点：无标准化老客激活体系、无高频复购卡项体系，员工不会维护老客、不会唤醒沉睡客户，老客没有持续到店消费的核心理由。
-
-    经营隐患：老客是门店核心资产，长期复购低迷，仅靠零散新客支撑，门店经营极不稳定，随时会出现业绩断崖式下滑。
-
-    下一步引导：建议领取专属门店老客复购卡点诊断，梳理沉睡客户流失核心原因。
-
-    8. 利润断层型门店（高风险）
-
-    门店标签：利润断层型门店 · 盈利卡点严重
-
-    核心问题：您的门店基础项目可以正常成交，但高端抗衰、高客单项目始终难以突破。门店日常看着有客流、有成交，但整体利润微薄，辛苦不赚钱，门店盈利天花板极低。
-
-    深层卡点：不是项目效果不足，而是缺少顾客价值感知铺垫、员工高客单成交能力薄弱，顾客对高价项目信任度不足，无法完成升单转化。
-
-    经营隐患：长期依赖低价基础项目盈利，无法提升客单价，在美业同质化竞争中，极易陷入价格战，最终陷入越忙越不赚钱的恶性循环。
-
-    下一步引导：建议领取专属门店利润卡点深度诊断报告，梳理高客单转化核心问题。
-    `;
-        const conclusionWrap = document.createElement('div');
-        conclusionWrap.style.marginTop = '12px';
-        conclusionWrap.innerHTML = `<div style="text-align:right;margin-bottom:8px;"><button id='toggleConclusionBtn' class='consult-btn' style='background:#5d8c5a;'>查看完整结论</button></div><div id='fullConclusion' style='display:none; white-space:pre-wrap; background:#fff; padding:14px; border-radius:12px; border:1px solid #e6efe0;'>${fullConclusion.replace(/</g,'&lt;').replace(/\n/g,'<br>')}</div>`;
-        document.getElementById('resultArea').appendChild(conclusionWrap);
-        document.getElementById('toggleConclusionBtn').addEventListener('click', ()=>{
-            const el = document.getElementById('fullConclusion');
-            if (el.style.display === 'none') { el.style.display = 'block'; document.getElementById('toggleConclusionBtn').innerText = '收起完整结论'; }
-            else { el.style.display = 'none'; document.getElementById('toggleConclusionBtn').innerText = '查看完整结论'; }
-        });
+ 
+        // 提示用户截图保存结果，便于后续参考
+        const saveReminder = document.createElement('div');
+        saveReminder.style.marginTop = '12px';
+        saveReminder.innerHTML = `<div style="background:#fff;padding:12px;border-radius:12px;border:1px solid #e6efe0;color:#333;">请截图保存本页面结果，便于后续查看与分享。</div>`;
+        document.getElementById('resultArea').appendChild(saveReminder);
     }
 
     // 分享并在分享完成后显示群二维码（优先使用 Web Share API）
